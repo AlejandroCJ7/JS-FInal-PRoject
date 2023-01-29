@@ -1,0 +1,42 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: grid;
+    place-items: center;
+    overflow-x: hidden;
+}
+
+h1{
+    margin: 10px;
+}
+
+ul{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.box{
+    display: flex;
+}
+
+li{
+    list-style: none;
+    display: grid;
+    place-items: center;
+    font-size: 0px;
+}
+
+.square {
+    margin: .4px;
+    width: 75px;
+    height: 75px;
+}
+
+#switch{
+    margin: 10px 0px;
+}
+
