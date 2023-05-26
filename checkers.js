@@ -1,3 +1,5 @@
+
+
 //Created a visual representation of the board, with the 'null' representing each block
 const board = [
     null, 0, null, 1, null, 2, null, 3,
@@ -9,16 +11,31 @@ const board = [
     null, 16, null, 17, null, 18, null, 19,
     20, null, 21, null, 22, null, 23, null,
 ]
+
+
+//parses piece IDs and returns index of specific piece on the board
+let findPiece = function (pieceId) {
+    let parsed = parseInt(pieceId);
+    return board.indexOf(parsed);
+};
+
+
 //DOM
 const blocks = document.querySelectorAll('td');
 let redPieces = document.querySelectorAll('p');
 let blackPieces = document.querySelectorAll('span');
+const redsTurnText = document.querySelectorAll(".reds-turn");
+const blacksTurntext = document.querySelectorAll(".blacks-turn");
 
+
+//players properties
 let turn = true;
 let redScore = 12;
 let blackScore = 12;
 let playerPieces;
 
+
+//selected piece properties
 let selectedPiece = {
     pieceId: -1,
     indexOfBoardPiece: -1,
@@ -33,34 +50,39 @@ let selectedPiece = {
     minusEighteenthSpace: false
 }
 
+
+//gets event listeners ready for piecess
 function givePiecesEventListeners() {
     if (turn) {
-        for (let i = 0; i < redsPieces.length; i++) {
-            redsPieces[i].addEventListener("click", getPlayerPieces);
+        for (let i = 0; i < redPieces.length; i++) {
+            redPieces[i].addEventListener("click", getPlayerPieces);
         }
     } else {
-        for (let i = 0; i < blacksPieces.length; i++) {
-            blacksPieces[i].addEventListener("click", getPlayerPieces);
+        for (let i = 0; i < blackPieces.length; i++) {
+            blackPieces[i].addEventListener("click", getPlayerPieces);
         }
     }
 }
 
+//length of players peice count
 function getPlayerPieces() {
     if (turn) {
-        playerPieces = redsPieces;
+        playerPieces = redPieces;
     } else {
-        playerPieces = blacksPieces;
+        playerPieces = blackPieces;
     }
-    removeCellonclick();
+    removeBlockonclick();
     resetBorders();
 }
 
-function removeCellonclick() {
-    for (let i = 0; i < cells.length; i++) {
-        cells[i].removeAttribute("onclick");
+//removes old selected pieces becausee the player might reselect
+function removeBlockonclick() {
+    for (let i = 0; i < blocks.length; i++) {
+        blocks[i].removeAttribute("onclick");
     }
 }
 
+// resets borders to original
 function resetBorders() {
     for (let i = 0; i < playerPieces.length; i++) {
         playerPieces[i].style.border = "1px solid white";
@@ -69,6 +91,7 @@ function resetBorders() {
     getSelectedPiece();
 }
 
+// resets selected pieces
 function resetSelectedPieceProperties() {
     selectedPiece.pieceId = -1;
     selectedPiece.pieceId = -1;
@@ -83,7 +106,44 @@ function resetSelectedPieceProperties() {
     selectedPiece.minusEighteenthSpace = false;
 }
 
-let findPiece = function (pieceId) {
-    let parsed = parseInt(pieceId);
-    return board.indexOf(parsed);
-};
+// function gets ID/index of where the block is on the board
+function getSelectedPiece() {
+    selectedPiece.pieceId = parseInt(target.id);
+    selectedPiece.indexOfBoardPiece = findPiece(selectedPiece.pieceId);
+    isPieceKing();
+}
+
+// functions checks if the piece is king
+function isPieceKing() {
+    if (document.getElementById(selectedPiece.pieceId).classList.contains("king")) {
+        selectedPiece.isKing = true;
+    } else {
+        selectedPiece.isKing = false;
+    }
+    getAvailableSpaces();
+}
+
+// moves that the selected piece is able to make
+function getAvailableSpaces() {
+    if (board[selectedPiece.indexOfBoardPiece + 7] === null && 
+        blocks[selectedPiece.indexOfBoardPiece + 7].classList.contains("noPiece") !== true) {
+        selectedPiece.seventhSpace = true;
+    }
+    if (board[selectedPiece.indexOfBoardPiece + 9] === null && 
+        blocks[selectedPiece.indexOfBoardPiece + 9].classList.contains("noPiece") !== true) {
+        selectedPiece.ninthSpace = true;
+    }
+    if (board[selectedPiece.indexOfBoardPiece - 7] === null && 
+        blocks[selectedPiece.indexOfBoardPiece - 7].classList.contains("noPiece") !== true) {
+        selectedPiece.minusSeventhSpace = true;
+    }
+    if (board[selectedPiece.indexOfBoardPiece - 9] === null && 
+        blocks[selectedPiece.indexOfBoardPiece - 9].classList.contains("noPiece") !== true) {
+        selectedPiece.minusNinthSpace = true;
+    }
+    checkAvailableJumpSpaces();
+}
+
+// moves that the selected piece can jump  (still working....)
+function checkAvailableJumpSpaces() {
+   
