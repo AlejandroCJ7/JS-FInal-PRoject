@@ -1,6 +1,15 @@
+//Created a visual representation of the board, with the 'null' representing each block
+const board = [
+    null, 0, null, 1, null, 2, null, 3,
+    4, null, 5, null, 6, null, 7, null,
+    null, 8, null, 9, null, 10, null, 11,
+    null, null, null, null, null, null, null, null,
+    null, null, null, null, null, null, null, null,
+    12, null, 13, null, 14, null, 15, null,
+    null, 16, null, 17, null, 18, null, 19,
+    20, null, 21, null, 22, null, 23, null,
+]
 
-var redPieces = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-var blackPieces = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
 var currentPlayer = "red";
 
 
