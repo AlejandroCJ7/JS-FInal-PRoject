@@ -22,10 +22,6 @@ let findPiece = function (pieceId) {
     return board.indexOf(parsed);
 };
 
-const cells = document.querySelectorAll("td");
-let redsPieces = document.querySelectorAll("p")
-let blacksPieces = document.querySelectorAll("span")
-
 let turn = true;
 let redScore = 12;
 let blackScore = 12;
