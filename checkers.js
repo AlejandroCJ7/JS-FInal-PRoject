@@ -146,4 +146,9 @@ function getAvailableSpaces() {
 
 // moves that the selected piece can jump  (still working....)
 function checkAvailableJumpSpaces() {
-   
+    if (turn) {
+        if (board[selectedPiece.indexOfBoardPiece + 14] === null 
+        && blocks[selectedPiece.indexOfBoardPiece + 14].classList.contains("noPiece") == true
+        && board[selectedpiece.indexOfBoardPiece + 7] >= 12) {
+            selectedPiece.fourteenthSpace = true;
+        }
