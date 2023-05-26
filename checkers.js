@@ -14,14 +14,6 @@ const blocks = document.querySelectorAll('td');
 let redPieces = document.querySelectorAll('p');
 let blackPieces = document.querySelectorAll('span');
 
-
-
-
-let findPiece = function (pieceId) {
-    let parsed = parseInt(pieceId);
-    return board.indexOf(parsed);
-};
-
 let turn = true;
 let redScore = 12;
 let blackScore = 12;
@@ -74,6 +66,7 @@ function resetBorders() {
         playerPieces[i].style.border = "1px solid white";
     }
     resetSelectedPieceProperties();
+    getSelectedPiece();
 }
 
 function resetSelectedPieceProperties() {
@@ -89,3 +82,8 @@ function resetSelectedPieceProperties() {
     selectedPiece.minusFourteenthSpace = false;
     selectedPiece.minusEighteenthSpace = false;
 }
+
+let findPiece = function (pieceId) {
+    let parsed = parseInt(pieceId);
+    return board.indexOf(parsed);
+};
