@@ -9,8 +9,12 @@ const board = [
     null, 16, null, 17, null, 18, null, 19,
     20, null, 21, null, 22, null, 23, null,
 ]
+//DOM
+const blocks = document.querySelectorAll('td');
+let redPieces = document.querySelectorAll('p');
+let blackPieces = document.querySelectorAll('span');
 
-var currentPlayer = "red";
+
 
 
 let findPiece = function (pieceId) {
@@ -26,6 +30,7 @@ let turn = true;
 let redScore = 12;
 let blackScore = 12;
 let playerPieces;
+
 let selectedPiece = {
     pieceId: -1,
     indexOfBoardPiece: -1,
