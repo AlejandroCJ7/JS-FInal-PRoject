@@ -108,7 +108,7 @@ function resetSelectedPieceProperties() {
 
 // function gets ID/index of where the block is on the board
 function getSelectedPiece() {
-    selectedPiece.pieceId = parseInt(target.id);
+    selectedPiece.pieceId = parseInt(eventObj.target.id);
     selectedPiece.indexOfBoardPiece = findPiece(selectedPiece.pieceId);
     isPieceKing();
 }
@@ -144,11 +144,67 @@ function getAvailableSpaces() {
     checkAvailableJumpSpaces();
 }
 
-// moves that the selected piece can jump  (still working....)
+// moves that the selected piece can jump
 function checkAvailableJumpSpaces() {
     if (turn) {
-        if (board[selectedPiece.indexOfBoardPiece + 14] === null 
-        && blocks[selectedPiece.indexOfBoardPiece + 14].classList.contains("noPiece") == true
+        if (board[selectedPiece.indexOfBoardPiece + 14] !== null 
+        && blocks[selectedPiece.indexOfBoardPiece + 14].classList.contains("noPiece") !== true
         && board[selectedpiece.indexOfBoardPiece + 7] >= 12) {
             selectedPiece.fourteenthSpace = true;
         }
+        if (board[selectedPiece.indexOfBoardPiece + 18] === null 
+            && blocks[selectedPiece.indexOfBoardPiece + 18].classList.contains("noPiece") !== true
+            && board[selectedPiece.indexOfBoardPiece + 9] >= 12) {
+                selectedPiece.eighteenthSpace = true;
+            }
+            if (board[selectedPiece.indexOfBoardPiece - 14] === null 
+            && blocks[selectedPiece.indexOfBoardPiece - 14].classList.contains("noPiece") !== true
+            && board[selectedPiece.indexOfBoardPiece - 7] >= 12) {
+                selectedPiece.minusFourteenthSpace = true;
+            }
+            if (board[selectedPiece.indexOfBoardPiece - 18] === null 
+            && blocks[selectedPiece.indexOfBoardPiece - 18].classList.contains("noPiece") !== true
+            && board[selectedPiece.indexOfBoardPiece - 9] >= 12) {
+                selectedPiece.minusEighteenthSpace = true;
+            }
+        } else {
+            if (board[selectedPiece.indexOfBoardPiece + 14] === null 
+            && blocks[selectedPiece.indexOfBoardPiece + 14].classList.contains("noPiece") !== true
+            && board[selectedPiece.indexOfBoardPiece + 7] < 12 && board[selectedPiece.indexOfBoardPiece + 7] !== null) {
+                selectedPiece.fourteenthSpace = true;
+            }
+            if (board[selectedPiece.indexOfBoardPiece + 18] === null 
+            && blocks[selectedPiece.indexOfBoardPiece + 18].classList.contains("noPiece") !== true
+            && board[selectedPiece.indexOfBoardPiece + 9] < 12 && board[selectedPiece.indexOfBoardPiece + 9] !== null) {
+                selectedPiece.eighteenthSpace = true;
+            }
+            if (board[selectedPiece.indexOfBoardPiece - 14] === null && blocks[selectedPiece.indexOfBoardPiece - 14].classList.contains("noPiece") !== true
+            && board[selectedPiece.indexOfBoardPiece - 7] < 12 
+            && board[selectedPiece.indexOfBoardPiece - 7] !== null) {
+                selectedPiece.minusFourteenthSpace = true;
+            }
+            if (board[selectedPiece.indexOfBoardPiece - 18] === null && blocks[selectedPiece.indexOfBoardPiece - 18].classList.contains("noPiece") !== true
+            && board[selectedPiece.indexOfBoardPiece - 9] < 12
+            && board[selectedPiece.indexOfBoardPiece - 9] !== null) {
+                selectedPiece.minusEighteenthSpace = true;
+            }
+        }
+        givePieceBorder();
+    }
+    
+
+// gives the selected piece a green hue to show it can move
+function givePieceBorder() {
+    if (selectedPiece.seventhSpace || selectedPiece.ninthSpace || selectedPiece.fourteenthSpace || selectedPiece.eighteenthSpace
+    || selectedPiece.minusSeventhSpace || selectedPiece.minusNinthSpace || selectedPiece.minusFourteenthSpace || selectedPiece.minusEighteenthSpace) {
+        document.getElementById(selectedPiece.pieceId).style.border = "3px solid green";
+        giveBlocksClick();
+    } else {
+        return;
+    }
+}
+
+
+// gives the blocks on the board a 'click' bassed on the possible moves (still working...)
+function giveBlocksClick() {
+    

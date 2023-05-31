@@ -4,6 +4,9 @@
     background-color:beige;
 }
 
+table{
+    border: 5px solid black
+}
 h1 {
     color: black;
     text-align: center;
@@ -24,12 +27,12 @@ div {
 }
 
 .noPiece {
-    background-color: green;
+    background-color: white;
 }
 
 td {
     text-align: center;
-    background-color: gray;
+    background-color: black;
     width: 65px;
     height: 65px;
 }
