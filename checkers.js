@@ -149,7 +149,7 @@ function checkAvailableJumpSpaces() {
     if (turn) {
         if (board[selectedPiece.indexOfBoardPiece + 14] !== null 
         && blocks[selectedPiece.indexOfBoardPiece + 14].classList.contains("noPiece") !== true
-        && board[selectedpiece.indexOfBoardPiece + 7] >= 12) {
+        && board[selectedPiece.indexOfBoardPiece + 7] >= 12) {
             selectedPiece.fourteenthSpace = true;
         }
         if (board[selectedPiece.indexOfBoardPiece + 18] === null 
@@ -207,4 +207,88 @@ function givePieceBorder() {
 
 // gives the blocks on the board a 'click' bassed on the possible moves (still working...)
 function giveBlocksClick() {
-    
+    if (selectedPiece.seventhSpace) {
+        blocks[selectedPiece.indexOfBoardPiece + 7].setAttribute("onclick", "makeMove(7)");
+    }
+    if (selectedPiece.ninthSpace) {
+        blocks[selectedPiece.indexOfBoardPiece + 9].setAttribute("onclick", "makeMove(9)");
+    }
+    if (selectedPiece.fourteenthSpace) {
+        blocks[selectedPiece.indexOfBoardPiece + 14].setAttribute("onclick", "makeMove(14)");
+    }
+    if (selectedPiece.eighteenthSpace) {
+        blocks[selectedPiece.indexOfBoardPiece + 18].setAttribute("onclick", "makeMove(18)");
+    }
+    if (selectedPiece.minusSeventhSpace) {
+        blocks[selectedPiece.indexOfBoardPiece - 7].setAttribute("onclick", "makeMove(-7)");
+    }
+    if (selectedPiece.minusNinthSpace) {
+        blocks[selectedPiece.indexOfBoardPiece - 9].setAttribute("onclick", "makeMove(-9)");
+    }
+    if (selectedPiece.minusFourteenthSpace) {
+        blocks[selectedPiece.indexOfBoardPiece - 14].setAttribute("onclick", "makeMove(-14)");
+    }
+    if (selectedPiece.minusEighteenthSpace) {
+        blocks[selectedPiece.indexOfBoardPiece - 18].setAttribute("onclick", "makeMove(-18)");
+    }
+}
+
+
+// moves the piece that was clicked when the correct block is clicked
+function makeMove(number) {
+    document.getElementById(selectedPiece.pieceId).remove();
+    blocks[selectedPiece.indexOfBoardPiece].innerHTML = "";
+    if (turn) {
+        if (selectedPiece.isKing) {
+            blocks[selectedPiece.indexOfBoardPiece + number].innerHTML = `<p class="red-piece king" id="${selectedPiece.pieceId}"></p>`;
+            redPieces = document.querySelectorAll("p");
+        } else {
+            blocks[selectedPiece.indexOfBoardPiece + number].innerHTML = `<p class="red-piece" id="${selectedPiece.pieceId}"></p>`;
+            redPieces = document.querySelectorAll("p");
+        }
+    } else {
+        if (selectedPiece.isKing) {
+            blocks[selectedPiece.indexOfBoardPiece + number].innerHTML = `<span class="black-piece king" id="${selectedPiece.pieceId}"></span>`;
+            blackPieces = document.querySelectorAll("span");
+        } else {
+            blocks[selectedPiece.indexOfBoardPiece + number].innerHTML = `<span class="black-piece" id="${selectedPiece.pieceId}"></span>`;
+            blackPieces = document.querySelectorAll("span");
+        }
+    }
+    removeEventListeners();
+}
+
+// removes the onClick event listeners for the pieces
+function removeEventListeners() {
+    if (turn) {
+        for (let i = 0; i < redPieces.length; i++) {
+            redPieces[i].removeEventListener("click", getPlayerPieces);
+        }
+    } else {
+        for (let i = 0; i < blackPieces.length; i++) {
+            blackPieces[i].removeEventListener("click", getPlayerPieces);
+        }
+    }
+    changePlayer();
+}
+
+
+// Switches players turn
+function changePlayer() {
+    if (turn) {
+        turn = false;
+        for (let i = 0; i < redsTurnText.length; i++) {
+            redsTurnText[i].style.color = "lightGrey";
+            blacksTurntext[i].style.color = "black";
+        }
+    } else {
+        turn = true;
+        for (let i = 0; i < blacksTurntext.length; i++) {
+            blacksTurntext[i].style.color = "lightGrey";
+            redsTurnText[i].style.color = "black";
+        }
+    }
+    givePiecesEventListeners();
+}
+
+givePiecesEventListeners();
