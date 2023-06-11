@@ -25,7 +25,7 @@ const blocks = document.querySelectorAll('td');
 let redPieces = document.querySelectorAll('p');
 let blackPieces = document.querySelectorAll('span');
 const redsTurnText = document.querySelectorAll(".reds-turn");
-const blacksTurntext = document.querySelectorAll(".blacks-turn");
+const blacksTurnText = document.querySelectorAll(".blacks-turn");
 
 
 //players properties
@@ -65,7 +65,7 @@ function givePiecesEventListeners() {
 }
 
 //length of players peice count
-function getPlayerPieces() {
+function getPlayerPieces(event) {
     if (turn) {
         playerPieces = redPieces;
     } else {
@@ -73,6 +73,7 @@ function getPlayerPieces() {
     }
     removeBlockonclick();
     resetBorders();
+    getSelectedPiece(event);
 }
 
 //removes old selected pieces becausee the player might reselect
@@ -107,8 +108,8 @@ function resetSelectedPieceProperties() {
 }
 
 // function gets ID/index of where the block is on the board
-function getSelectedPiece() {
-    selectedPiece.pieceId = parseInt(eventObj.target.id);
+function getSelectedPiece(event) {
+    selectedPiece.pieceId = parseInt(event.target.id);
     selectedPiece.indexOfBoardPiece = findPiece(selectedPiece.pieceId);
     isPieceKing();
 }
@@ -147,7 +148,7 @@ function getAvailableSpaces() {
 // moves that the selected piece can jump
 function checkAvailableJumpSpaces() {
     if (turn) {
-        if (board[selectedPiece.indexOfBoardPiece + 14] !== null 
+        if (board[selectedPiece.indexOfBoardPiece + 14] === null 
         && blocks[selectedPiece.indexOfBoardPiece + 14].classList.contains("noPiece") !== true
         && board[selectedPiece.indexOfBoardPiece + 7] >= 12) {
             selectedPiece.fourteenthSpace = true;
@@ -279,12 +280,12 @@ function changePlayer() {
         turn = false;
         for (let i = 0; i < redsTurnText.length; i++) {
             redsTurnText[i].style.color = "lightGrey";
-            blacksTurntext[i].style.color = "black";
+            blacksTurnText[i].style.color = "black";
         }
     } else {
         turn = true;
         for (let i = 0; i < blacksTurntext.length; i++) {
-            blacksTurntext[i].style.color = "lightGrey";
+            blacksTurnText[i].style.color = "lightGrey";
             redsTurnText[i].style.color = "black";
         }
     }
